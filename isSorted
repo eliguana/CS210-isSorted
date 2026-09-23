@@ -1,0 +1,93 @@
+/*
+1)Implement bool isSorted(const std::vector<int>& values).
+2) Implement bubble sort, selection sort, insertion sort, and quicksort from scratch.
+3) Verify each algorithm with isSorted after sorting.
+4)Benchmark all four algorithms on random, already sorted, and reverse-sorted input.
+5)Use at least three input sizes. Choose sizes large enough to show a meaningful 
+  trend without causing unreasonable runtime.
+6)Report a small timing table and explain the observed best, average, and worst behavior.
+  Restriction: do not use std::sort to perform the required sorts. You may use it only in a 
+  separate verification step if you clearly label that use. */
+//_____________________________________________________________________________________________
+#include <iostream>
+#include <vector>
+#include <chrono>
+using namespace std;
+
+//isSorted
+bool isSorted(const vector<int>& values)
+{
+  for (int i = 0; i < values.size() - 1; i++)
+  {
+      if(values[i] > values[i + 1])
+      {
+        return false;
+      }
+  }
+    return true;
+}
+//bubble sort
+void bubbleSort(vector<int>&values)
+{
+  int length = values.size();
+  
+  for (int i = 0; i < length; i++)
+  {
+      for(int j = 0; j < length - 1; j++)
+      {
+        if (values[j] > values[j + 1])
+            swap(values[j], values[j + 1]);
+      }
+  }
+}
+
+//selection sort
+void selectionSort(vector<int>&values)
+{
+  int length = values.size();
+  for(int i = 0; i < length - 1; ++i)
+  {
+    int min_elem = i;
+    for (int j = i + 1; j < length; ++j){
+      if (values[j] < values[min_elem]) {
+      min_elem = j;
+    }
+}
+    swap (values[i], values[min_elem]);
+}
+}
+
+//insertion sort
+void insertionSort(vector<int>& values)
+{
+
+}
+
+int main()
+{
+    vector<int> values = {4, 10, 12, 14, 17, 0, 7, 5, 8};
+
+    vector<int> bubbleValues = values;
+    bubbleSort(bubbleValues);
+    if(isSorted(bubbleValues))
+    {
+    cout << "Bubble Sort is a success :) " << endl;
+    }
+    else 
+    {
+    cout << "Bubble Sort has failed ;-; . " << endl;
+    }
+
+    vector<int> selectionValues = values;
+    selectionSort(selectionValues);
+    if(isSorted(selectionValues))
+    {
+    cout << "Selection Sort is a success :) " << endl;
+    }
+    else 
+    {
+    cout << "Selection Sort has failed ;-; . " << endl;
+    }
+
+return 0;
+}
