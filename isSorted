@@ -11,7 +11,9 @@
 //_____________________________________________________________________________________________
 #include <iostream>
 #include <vector>
+#include <utility>
 #include <chrono>
+
 using namespace std;
 
 //isSorted
@@ -64,13 +66,59 @@ void insertionSort(vector<int>& values)
   for (int i = 1; i < length; ++i){
       int key = values [i];
       int j = i - 1;
-  while (j >= 0 && values[j] key)
+  while (j >= 0 && values[j] > key)
   {
     values[j + 1] = values [j];
     j = j - 1;
   }
     values [j + 1] = key;
   }
+}
+
+/*quick sort: 3 steps 
+  1) choose a pivot
+  2) partition the array (https://www.geeksforgeeks.org/dsa/hoare-s-partition-algorithm/)
+  3) recursively call till base case*/
+
+//Hoare's partition
+int partition(vector<int>& values, int low, int high)
+{
+    int pivot = values[low];
+
+    int i = low - 1;
+    int j = high + 1;
+
+    while (true)
+    {
+        do
+        {
+            i++;
+        } while (values[i] < pivot);
+
+        do
+        {
+            j--;
+        } while (values[j] > pivot);
+
+        if (i >= j)
+        {
+            return j;
+        }
+
+        swap(values[i], values[j]);
+    }
+}
+
+//quick sort
+void quickSort(vector<int>& values, int low, int high)
+{
+    if (low < high)
+    {
+        int partIndex = partition(values, low, high);
+
+        quickSort(values, low, partIndex);
+        quickSort(values, partIndex + 1, high);
+    }
 }
 
 int main()
@@ -99,5 +147,27 @@ int main()
     cout << "Selection Sort has failed ;-; . " << endl;
     }
 
+    vector<int> insertionValues = values;
+    insertionSort(insertionValues);
+    if(isSorted(insertionValues))
+     {
+    cout << "Insertion Sort is a success :) " << endl;
+    }
+    else 
+    {
+    cout << "Insertion Sort has failed ;-; . " << endl;
+    }
+
+    vector<int> quickValues = values;
+    quickSort(quickValues, 0, quickValues.size() -1);
+    if(isSorted(quickValues))
+     {
+    cout << "Quick Sort is a success :) " << endl;
+    }
+    else 
+    {
+    cout << "Quick Sort has failed ;-; . " << endl;
+    }
+    
 return 0;
 }
