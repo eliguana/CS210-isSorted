@@ -12,11 +12,13 @@
 #include <iostream>
 #include <vector>
 #include <utility>
+#include <cstdlib>
+#include <ctime>
 #include <chrono>
 
 using namespace std;
 
-//isSorted
+//PART 1: isSorted
 bool isSorted(const vector<int>& values)
 {
   for (int i = 0; i < values.size() - 1; i++)
@@ -28,6 +30,9 @@ bool isSorted(const vector<int>& values)
   }
     return true;
 }
+//_______________________________________________________
+//PART 2: Sorting Algorithms
+
 //bubble sort
 void bubbleSort(vector<int>&values)
 {
@@ -120,11 +125,31 @@ void quickSort(vector<int>& values, int low, int high)
         quickSort(values, partIndex + 1, high);
     }
 }
+//__________________________________________________________________
+//BENCHMARKING:(https://www.youtube.com/watch?v=M-t5TSzewOs&t=142s)
 
+//Random:
+void<int> makeRandom(int size
+
+//Already Sorted:
+
+//Reverse-Sorted Input 
+
+//Benchmark Function
+void benchmark(vector<int> values)
+{
+  vector<int> bubbleValues = values;
+  vector<int> selectionValues = values;
+  vector<int> insertionValues = values;
+  vector<int> quickValues = values;
+}
+
+//__________________________________________________________________
 int main()
 {
     vector<int> values = {4, 10, 12, 14, 17, 0, 7, 5, 8};
 
+    cout << "============ Sorting Algorithm Tests ===========" << endl;
     vector<int> bubbleValues = values;
     bubbleSort(bubbleValues);
     if(isSorted(bubbleValues))
@@ -168,6 +193,8 @@ int main()
     {
     cout << "Quick Sort has failed ;-; . " << endl;
     }
+cout<<"========================================================" << endl;
+cout<< "============ Benchmarking ===========" << endl;
     
 return 0;
 }
