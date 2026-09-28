@@ -11,10 +11,11 @@
 //_____________________________________________________________________________________________
 #include <iostream>
 #include <vector>
-#include <utility>
-#include <cstdlib>
-#include <ctime>
-#include <chrono>
+#include <utility> //needed for swap
+#include <cstdlib> //needed for rand()
+#include <string>
+#include <ctime> //needed for time()
+#include <chrono> //need for time duration
 
 using namespace std;
 
@@ -126,22 +127,84 @@ void quickSort(vector<int>& values, int low, int high)
     }
 }
 //__________________________________________________________________
+//PART 4:
 //BENCHMARKING:(https://www.youtube.com/watch?v=M-t5TSzewOs&t=142s)
 
 //Random:
-void<int> makeRandom(int size
+vector<int> makeRandom(int size)
+{
+    vector <int> values(size);
+
+    for (int i = 0; i < size; i++){
+        values [i] = rand() % 10000;
+    }
+    return values;
+}
 
 //Already Sorted:
 
+vector<int> makeSorted(int size){
+    vector <int> values(size);
+
+    for (int i = 0; i < size; i++){
+        values[i] = i;
+    }
+    return values;
+}
+
 //Reverse-Sorted Input 
 
+vector<int> makeReverseSorted(int size){
+    vector <int> values(size);
+
+    for (int i = 0; i < size; i++){
+        values [i] = size - 1 - i;
+    }
+    return values;
+}
+//__________________________________________________________________
 //Benchmark Function
-void benchmark(vector<int> values)
+void benchmark(vector<int> values, string inputType, int size)
 {
   vector<int> bubbleValues = values;
   vector<int> selectionValues = values;
   vector<int> insertionValues = values;
   vector<int> quickValues = values;
+
+  cout << inputType << endl;
+  cout << size << endl;
+
+  //Time Duration of bubbleSort:
+
+  auto start = chrono:: high_resolution_clock::now();
+
+  bubbleSort(bubbleValues);
+
+  auto end = chrono::high_resolution_clock::now();
+    
+  //Time Duration of selectionSort:
+
+  auto start = chrono:: high_resolution_clock::now();
+
+  selectionSort(selectionValues);
+
+  auto end = chrono::high_resolution_clock::now();
+
+  //Time Duration of insertionSort:
+
+  auto start = chrono:: high_resolution_clock::now();
+
+  insertionSort(insertionValues);
+
+  auto end = chrono::high_resolution_clock::now();
+
+  //Time Duration of quickSort:
+
+  auto start = chrono:: high_resolution_clock::now();
+
+  quickSort(quickValues);
+
+  auto end = chrono::high_resolution_clock::now();
 }
 
 //__________________________________________________________________
@@ -149,7 +212,8 @@ int main()
 {
     vector<int> values = {4, 10, 12, 14, 17, 0, 7, 5, 8};
 
-    cout << "============ Sorting Algorithm Tests ===========" << endl;
+//PART 3: Verify isSorted
+    cout << "============ Sorting Algorithm Tests ============ " << endl;
     vector<int> bubbleValues = values;
     bubbleSort(bubbleValues);
     if(isSorted(bubbleValues))
@@ -193,15 +257,28 @@ int main()
     {
     cout << "Quick Sort has failed ;-; . " << endl;
     }
-cout<<"========================================================" << endl;
-cout<< "============ Benchmarking ===========" << endl;
 
-int sizes[] = {3000, 4500, 30000};
+cout<< "================== Benchmarking =================" << endl;
 
-for (int i = 0; i < 3; i++)
+vector <int> sizes(3);
+
+cout << "Enter 3 input sizes: " << endl;
+
+for (int i = 0; i < 3;  i++)
 {
-  int size = sizes[i];
+  cin >> sizes[i];
 
-    
+    int size = sizes[i];
+
+    vector<int> randomValues = makeRandom(size);
+    vector<int> sortedValues = makeSorted(size);
+    vector<int> reverseValues = makeReverseSorted(size);
+
+    benchmark(randomValues, "Random", size);
+    benchmark(sortedValues, "Already Sorted", size);
+    benchmark(reverseValues, "Reverse Sorted", size);
+}
+
 return 0;
 }
+
