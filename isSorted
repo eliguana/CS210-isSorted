@@ -14,7 +14,6 @@
 #include <utility> //needed for swap
 #include <cstdlib> //needed for rand()
 #include <string>
-#include <ctime> //needed for time()
 #include <chrono> //need for time duration
 
 using namespace std;
@@ -172,7 +171,7 @@ void benchmark(vector<int> values, string inputType, int size)
   vector<int> quickValues = values;
 
   cout << inputType << endl;
-  cout << size << endl;
+  cout << "Size: " << size << endl;
 
   //Time Duration of bubbleSort:
 
@@ -283,12 +282,16 @@ for (int i = 0; i < 3;  i++)
     vector<int> randomValues = makeRandom(size);
     vector<int> sortedValues = makeSorted(size);
     vector<int> reverseValues = makeReverseSorted(size);
-cout<< "=================================================" << endl;
+    cout<< "=================================================" << endl;
+    cout << "INPUT SIZE: " << size << endl;
+    cout << "========================================" << endl;
+
     benchmark(randomValues, "Benchmark: Random", size);
+    cout<< "=================================================" << endl;
     benchmark(sortedValues, "Benchmark: Already Sorted", size);
+    cout<< "=================================================" << endl;
     benchmark(reverseValues, "Benchmark: Reverse Sorted", size);
 }
 
 return 0;
 }
-
