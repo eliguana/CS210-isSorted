@@ -176,35 +176,43 @@ void benchmark(vector<int> values, string inputType, int size)
 
   //Time Duration of bubbleSort:
 
-  auto start = chrono:: high_resolution_clock::now();
+  auto start = chrono::high_resolution_clock::now();
 
   bubbleSort(bubbleValues);
 
   auto end = chrono::high_resolution_clock::now();
+  chrono::duration<double, milli> bubbleDur = end - start;
+  cout << " Bubble Sort Time Elapsed: " << bubbleDur.count() << " ms" << endl;
     
   //Time Duration of selectionSort:
 
-  auto start = chrono:: high_resolution_clock::now();
+  start = chrono:: high_resolution_clock::now();
 
   selectionSort(selectionValues);
 
-  auto end = chrono::high_resolution_clock::now();
+  end = chrono::high_resolution_clock::now();
+  chrono::duration<double, milli> selectDur = end - start;
+  cout << " Selection Sort Time Elapsed: " << selectDur.count() << " ms" << endl;
 
   //Time Duration of insertionSort:
 
-  auto start = chrono:: high_resolution_clock::now();
+  start = chrono:: high_resolution_clock::now();
 
   insertionSort(insertionValues);
 
-  auto end = chrono::high_resolution_clock::now();
+  end = chrono::high_resolution_clock::now();
+  chrono::duration<double, milli> insertionDur = end - start;
+  cout << " Insertion Sort Time Elapsed: " << insertionDur.count() << " ms" << endl;
 
   //Time Duration of quickSort:
 
-  auto start = chrono:: high_resolution_clock::now();
+  start = chrono:: high_resolution_clock::now();
 
-  quickSort(quickValues);
+  quickSort(quickValues, 0, quickValues.size() - 1);
 
-  auto end = chrono::high_resolution_clock::now();
+  end = chrono::high_resolution_clock::now();
+  chrono::duration<double, milli> quickDur = end - start;
+  cout << " Quick Sort Time Elapsed: " << quickDur.count() << " ms" << endl;
 }
 
 //__________________________________________________________________
@@ -263,6 +271,8 @@ cout<< "================== Benchmarking =================" << endl;
 vector <int> sizes(3);
 
 cout << "Enter 3 input sizes: " << endl;
+cout<< "=================================================" << endl;
+
 
 for (int i = 0; i < 3;  i++)
 {
@@ -273,10 +283,10 @@ for (int i = 0; i < 3;  i++)
     vector<int> randomValues = makeRandom(size);
     vector<int> sortedValues = makeSorted(size);
     vector<int> reverseValues = makeReverseSorted(size);
-
-    benchmark(randomValues, "Random", size);
-    benchmark(sortedValues, "Already Sorted", size);
-    benchmark(reverseValues, "Reverse Sorted", size);
+cout<< "=================================================" << endl;
+    benchmark(randomValues, "Benchmark: Random", size);
+    benchmark(sortedValues, "Benchmark: Already Sorted", size);
+    benchmark(reverseValues, "Benchmark: Reverse Sorted", size);
 }
 
 return 0;
